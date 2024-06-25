@@ -21,12 +21,14 @@ package org.example.unionfind;
  *
  *  Whe merging two elements together to connect,
  *  check the root of the first node and second node and keep track of the count of the total elements in both the merging group
- *  & merge the group which has the smallest weight with the largest group.
+ *  & merge the group which has the smallest weight under the largest group.
  *  Such that the largest group's root is the final root of the merged group.
  *
- *  E.g. union(7, 1) with normal QuickUnion => will make the final top root to be 1.
  *
- *  While, union(7, 1) with weighted QuickUnion => will change the top root instead to be 7.
+ *  E.g.
+ *        union(7, 1) with normal QuickUnion => will make the final top root to be 1.
+ *
+ *        union(7, 1) with weighted QuickUnion => will change the top root instead to be 7.
  *
  *  And the new sets of disjoint sets will be below.
  *  New Merged Set : {1->2->7<-6<-5<-0}, {4->3->9->8}
@@ -46,11 +48,11 @@ package org.example.unionfind;
  *  1    0
  *  2    1
  *  4    2
- *  8    4
- *  16   8
+ *  8    3
+ *  16   4
  *
- *  1. Find : O(NlogN) for N unions
- *  2. Union : O(NlogN) for N finds
+ *  1. Find : O(NlogN) for N finds
+ *  2. Union : O(NlogN) for N unions
  *  ****** ****** ****** ****** ******
  */
 
@@ -62,6 +64,8 @@ public class WeightedQuickUnion {
 
     private final int[] depth; // for auditing only
     int maxDepthNode = -1;
+
+    int finalDepth;
 
     WeightedQuickUnion(int N) {
         array = new int[N];
@@ -127,15 +131,13 @@ public class WeightedQuickUnion {
         // for auditing only ---- Optional part added for time comparison
         // #TimeAnalysisWeightedVsNonWeighted
         // Update depth
-        int newDepth = Math.max(depth[rootPId], depth[rootQId]) + 1;
+        int newDepth = depth[rootPId] == depth[rootQId]
+                ? Math.max(depth[rootPId], depth[rootQId]) + 1 : Math.max(depth[rootPId], depth[rootQId]);
         depth[rootPId] = depth[rootQId] = newDepth;
 
-        if(maxDepthNode == -1) {
-            maxDepthNode = rootPId; // or rootQId, both are same after union
-        }
 
         // Update max depth node if needed
-        if (newDepth > depth[maxDepthNode]) {
+        if (maxDepthNode == -1 || newDepth > depth[maxDepthNode]) {
             maxDepthNode = rootPId; // or rootQId, both are same after union
         }
     }
@@ -161,6 +163,6 @@ public class WeightedQuickUnion {
     }
 
     public int findMaxDepthCount() {
-        return array[maxDepthNode];
+        return depth[maxDepthNode];
     }
 }

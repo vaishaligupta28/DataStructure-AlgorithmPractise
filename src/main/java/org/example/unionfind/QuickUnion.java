@@ -15,14 +15,15 @@ package org.example.unionfind;
  *  Whe merging two elements together to connect,
  *  check the root of the first node and second node and make one of them as root for another one.
  *
+ *
  *  E.g. union(1, 7) => will modify the top root to be 7.
  *  And the new sets of disjoint sets will be below.
  *
  *  New Merged Set : {1->2->7<-6<-5<-0}, {4->3->9->8}
  *
  *  ******** Time Complexity ********
- *  1. Find : O(N^2) for N merges
- *  2. Union : O(N^2) for N finds
+ *  1. Find : O(N^2) for N finds
+ *  2. Union : O(N^2) for N merges
  *  ****** ****** ****** ****** ******
  */
 public class QuickUnion {
@@ -92,12 +93,8 @@ public class QuickUnion {
         int newDepth = Math.max(depth[rootPId], depth[rootQId]) + 1;
         depth[rootPId] = depth[rootQId] = newDepth;
 
-        if(maxDepthNode == -1) {
-            maxDepthNode = rootPId; // or rootQId, both are same after union
-        }
-
         // Update max depth node if needed
-        if (newDepth > depth[maxDepthNode]) {
+        if (maxDepthNode == -1 || newDepth > depth[maxDepthNode]) {
             maxDepthNode = rootPId; // or rootQId, both are same after union
         }
     }
@@ -131,6 +128,6 @@ public class QuickUnion {
     }
 
     public int findMaxDepthCount() {
-        return array[maxDepthNode];
+        return depth[maxDepthNode];
     }
 }
