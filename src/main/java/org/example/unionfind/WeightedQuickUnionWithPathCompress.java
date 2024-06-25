@@ -86,6 +86,17 @@ public class WeightedQuickUnionWithPathCompress {
         }
     }
 
+    public static void main(String[] args) {
+        WeightedQuickUnionWithPathCompress obj = new WeightedQuickUnionWithPathCompress(10);
+        obj.union(5, 6);
+        obj.union(1, 2);
+
+        boolean b = obj.find(1, 2);
+        System.out.println("b = " + b);
+
+        obj.printConnectedSets();
+    }
+
     private int root(int i) {
         // Path compression
         while (i != array[i]) {
