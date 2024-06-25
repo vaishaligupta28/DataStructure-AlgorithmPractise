@@ -21,10 +21,12 @@ package org.example.unionfind;
  *
  *  New Merged Set : {1->2->7<-6<-5<-0}, {4->3->9->8}
  *
- *  ******** Time Complexity ********
- *  1. Find : O(N^2) for N finds
- *  2. Union : O(N^2) for N merges
- *  ****** ****** ****** ****** ******
+ *  ******** Time Complexity [N elements,M operations] ********
+ *  1. Find : O(M H)
+ *  2. Union : O(M H)
+ *
+ *  where H is the tree height & for worst case H can be same as N.
+ *  ****** ****** ****** ****** ****** ****** ****** ****** ******
  */
 public class QuickUnion {
 

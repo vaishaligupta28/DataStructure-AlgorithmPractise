@@ -34,7 +34,7 @@ package org.example.unionfind;
  *  New Merged Set : {1->2->7<-6<-5<-0}, {4->3->9->8}
  *
  *
- *  ******** Time Complexity ********
+ *  ******** Time Complexity [N elements,M operations] ********
  *  Let's talk about the time complexity,
  *
  *  After adding weighted logic, in the worst case scenario, the depth of the largest node
@@ -51,9 +51,11 @@ package org.example.unionfind;
  *  8    3
  *  16   4
  *
- *  1. Find : O(NlogN) for N finds
- *  2. Union : O(NlogN) for N unions
- *  ****** ****** ****** ****** ******
+ *  1. Find : O(M logN)
+ *  2. Union : O(M logN)
+ *
+ *  Now height of the tree will never grow more than logN.
+ *  ****** ****** ****** ****** ****** ****** ****** ****** ******
  */
 
 public class WeightedQuickUnion {
