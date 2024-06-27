@@ -48,73 +48,97 @@ package org.example.unionfind;
  *  2. Union : O(M log* N) or O(M α(N)) where α represents amortised time function
  *  ****** ****** ****** ****** ****** ****** ****** ****** ******
  *
- *  Reference :
+ * ----------------------------
+ *  Additional Points to Note:
+ *  ----------------------------
+ *
+ *  1. The `finding root` function can be optimized by pointing the node to the topmost root instead of
+ *  just pointing to the grandparent. Can be achieved using recursion.
+ *  Check `rootByRecur` instead of `root` for the same.
+ *
+ *  2. The merging logic i.e. `union` operation can be done in
+ *  two ways either using height of the tree or size of the tree. Also called UnionByRank and UnionBySize respectively.
+ *  In weighted quick union, we can either use height or size of the tree because we are not dynamically changing the depth.
+ *  But with path compression the height of the tree cannot be determined any longer since changing the path might or might not change the overall depth.
+ *  Hence, UnionByRank is not possible in this solution, and we have to use only Union By Size.
+ *
+ *  3. Since path compress already takes care of compressing the depth of the tree in the most efficient way so
+ *   using weighted approach by Union By Size does not optimize any further hence we can also do without that as well.
+ * ----------------------------
+ *
+ *  References :
  *  <a href="https://youtu.be/e3NkMl3evDg?list=PL8FaHk7qbOD44CGmkFro1gqxkDl5gIpXB">...</a>
+ *  <a href="https://youtu.be/aBxjDBC4M1U">...</a>
  */
 public class WeightedQuickUnionWithPathCompress {
 
     private final int[] array;
     private final int[] size;
 
-
-    private final int[] depth; // for auditing only
-    int maxDepthNode = -1;
-
     WeightedQuickUnionWithPathCompress(int N) {
         array = new int[N];
         size = new int[N];
-        depth = new int[N]; // for auditing only
 
         for(int i = 0; i < N; i++) {
             array[i] = i;
             size[i] = 1;
-
-            depth[i] = 0; // initialize depth // for auditing only
         }
     }
 
-    WeightedQuickUnionWithPathCompress(int[] inputArr, int[] sizeArr, int[] depthArr) {
+    WeightedQuickUnionWithPathCompress(int[] inputArr, int[] sizeArr) {
         array = inputArr;
         size = sizeArr;
-        depth = depthArr; // for auditing only
 
         for(int i = 0; i < inputArr.length; i++) {
             array[i] = i;
             size[i] = 1;
-
-            depth[i] = 0; // initialize depth // for auditing only
         }
     }
 
     public static void main(String[] args) {
         WeightedQuickUnionWithPathCompress obj = new WeightedQuickUnionWithPathCompress(10);
-        obj.union(5, 6);
-        obj.union(1, 2);
+        obj.union(0, 1);
+        obj.union(2, 3);
+        obj.union(4, 5);
+        obj.union(2, 4);
+        System.out.println("obj.find(0, 2) = " + obj.find(0, 2));
 
-        boolean b = obj.find(1, 2);
-        System.out.println("b = " + b);
+        obj.union(0, 2);
+
+        System.out.println("obj.find(0, 2) = " + obj.find(0, 2));
 
         obj.printConnectedSets();
     }
 
+    // Connects the grandparent instead of parent to a node.
     private int root(int i) {
         // Path compression
         while (i != array[i]) {
             if(array[i] != array[array[i]]) {
                 System.out.println("Compress the path from [" + i + "] to its root.");
                 array[i] = array[array[i]]; // Path compression by halving [changing from parent root to grandparent root]
-                depth[i]--;
+                i = array[i];
             }
-            i = array[i];
         }
         return i;
     }
 
-    public boolean find(int p, int q) {
-        return root(p) == root(q);
+
+    // [Better approach] Finds the ultimate root or parent and points indirect nodes directly to the parent itself.
+    private int rootByRecur(int i) {
+        if(i == array[i]) return i;
+        int root = rootByRecur(array[i]);
+        array[i]  = root;
+        return array[i];
     }
 
+    public boolean find(int p, int q) {
+        return rootByRecur(p) == rootByRecur(q);
+    }
+
+    // This function uses Union By Size for merging two nodes.
     public void union(int p, int q) {
+        System.out.println("--->>Union ["+p+","+ q+"]");
         int rootPId = root(p);
         int rootQId = root(q);
 
@@ -130,19 +154,6 @@ public class WeightedQuickUnionWithPathCompress {
             array[rootQId] = rootPId;
             size[rootPId]+=size[rootQId];
             System.out.println("Size of the tree=> "+ size[rootPId]);
-        }
-
-        // for auditing only ---- Optional part added for time comparison
-        // #TimeAnalysisWeightedVsNonWeighted
-        // Update depth
-        int newDepth = depth[rootPId] == depth[rootQId]
-                ? Math.max(depth[rootPId], depth[rootQId]) + 1 : Math.max(depth[rootPId], depth[rootQId]);
-        depth[rootPId] = depth[rootQId] = newDepth;
-
-
-        // Update max depth node if needed
-        if (maxDepthNode == -1 || newDepth > depth[maxDepthNode]) {
-            maxDepthNode = rootPId; // or rootQId, both are same after union
         }
     }
 
@@ -164,9 +175,5 @@ public class WeightedQuickUnionWithPathCompress {
             }
         }
         System.out.println(" ");
-    }
-
-    public int findMaxDepthCount() {
-        return depth[maxDepthNode];
     }
 }

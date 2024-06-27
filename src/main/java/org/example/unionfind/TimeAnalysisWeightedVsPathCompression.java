@@ -39,12 +39,5 @@ public class TimeAnalysisWeightedVsPathCompression {
         weightedQuickUnionWithPathCompress.union(4, 5);
         weightedQuickUnionWithPathCompress.union(2, 4);
         weightedQuickUnionWithPathCompress.union(0, 2);
-        int maxDepthCountAfterWeightedQuickUnionPathCompress = weightedQuickUnionWithPathCompress.findMaxDepthCount();
-        System.out.println("-----[After Weighted Quick Union With Path Compress]Largest depth node count = " + maxDepthCountAfterWeightedQuickUnionPathCompress);
-
-
-        if(maxDepthCountAfterWeightedQuickUnion > maxDepthCountAfterWeightedQuickUnionPathCompress) {
-            System.out.println("\n\n Hence Proved!  Weighted QuickUnion Path Compress is faster than QuickUnion Weighted without path compress");
-        }
     }
 }
