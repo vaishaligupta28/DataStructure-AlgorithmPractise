@@ -54,7 +54,14 @@ package org.example.unionfind;
  *
  *  1. The `finding root` function can be optimized by pointing the node to the topmost root instead of
  *  just pointing to the grandparent. Can be achieved using recursion.
- *  Check `rootByRecur` instead of `root` for the same.
+ *  Check `rootByRecur` instead of `root` for the same. Also called `one pass variant`.
+ *  The above way discussed before was a two pass variant.
+ *
+ *  Two implementations:
+ *
+ * - Two-pass: add second loop to root() to set the id[] of each examined node to the root.
+ * - Simpler one-pass variant: make every other node in path point to its grandparent
+ * (thereby halving path length).
  *
  *  2. The merging logic i.e. `union` operation can be done in
  *  two ways either using height of the tree or size of the tree. Also called UnionByRank and UnionBySize respectively.
