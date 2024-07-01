@@ -48,9 +48,9 @@ package org.example.analysis.excercise;
 public class Prob2_BitonicSearchOptimised {
 
     public static void main(String[] args) {
-//        int[] bitonicArray = {3,4,6,8,7,6,5,2,1,0};
+        int[] bitonicArray = {3,4,6,8,7,6,5,2,1,0};
 
-        int[] bitonicArray = {2,4,5,6,9,8,1};
+//        int[] bitonicArray = {2,4,5,6,9,8,1};
 
         Prob2_BitonicSearchOptimised s = new Prob2_BitonicSearchOptimised();
 
