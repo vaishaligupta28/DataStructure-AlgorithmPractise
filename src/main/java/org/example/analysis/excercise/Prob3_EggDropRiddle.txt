@@ -1,0 +1,72 @@
+Riddle 1: Egg drop riddle with 2 eggs and n floors
+
+Suppose that you have an n-story building (with floors 1 through n) and plenty of eggs.
+An egg breaks if it is dropped from floor T or higher and does not break otherwise.
+
+Find the highest floor i.e a (t-1) from which egg can be dropped without breaking with the least amount of tries
+considering we have only 2 eggs.
+
+Let's consider n to be 100.
+
+
+Solution1:
+Linear Search from 0 to 100 keep dropping till egg till you reach a floor where it does.
+The floor below this one is our answer.
+Worst case it would take 100 tries with 1 egg.
+We have still not utilised 1 egg and what if we have millions of floors this will be very expensive.
+
+Solution2:
+We can try going for binary search from 0 to 100.
+With binary search we start with mid i.e. 50th floor where we break the egg for the first time.
+If egg breaks then we know the highest floor lies somewhere below it and if it does not it lies above it.
+
+Let's say egg breaks so now we have 1 egg remaining and 50 floors i.e 0 - 50 to check.
+We can repeat the binary search and go to 25th position but this time if the egg breaks then we will have no remaining eggs
+to get to our highest floor so we cannot do a binary search again.
+Hence we have to go with a linear search from 0 to 50 floors.
+
+Therefore, in worst case we will take n/2 i.e. 50 tries minimum with 2 eggs.
+Nothing really improves here since it is still in order of n so if n is millions then n/2 is also a lot of tries.
+
+Solution3:
+Another solution which is interesting that follows the above solution slightly such that in prev case
+we started with 50th position i.e. the mid of the total floors
+How about we decrease this chunk to a smaller area.
+
+Since we have taken n as 100
+How about if we can start from 10th floor and jump 10 times to reach the highest floor.
+
+So with this solution after moving x jumps we will a reach a 10*xth floor where the egg will break
+and just before it at 10(x-1) egg would not have broken.
+
+Now we know our highest floor lies somewhere in the middle.
+So we search from 10(x-1) to 10(x) which will take 9 steps if we go linearly with 1 egg.
+
+So in total number of steps taken would be 10+9 = 19 steps which is decent not bad at all.
+We have come down from 100 to 50 to 19 now.
+
+Solution4:
+Do we have a better solution? Yes.
+Since we decrease the number of steps from 50 to 10 and after decreasing the jump size,
+we somehow were able to get to a more optimum solution
+
+Now there is a better way we can deal with it,
+
+How about we first start with x steps, then go another x-1 steps, then go another x-3 steps such that we reach 100.
+Now can we calculate this x? Yes
+
+   = x + x-1 + x-2 + x-3 + ........... + 2 + 1 = 100;
+   = x(x+1)/2 = 100
+   = x = 13.65 ~14
+
+   With this we are able to get the highest floor only with 14 steps which is the best most efficient way.
+
+
+
+Reference:
+https://www.youtube.com/watch?v=uBhSIKLlvdk&list=PLhJlXtt17ABYPfKyId5OCMkReEdvmufZn
+
+
+
+
+

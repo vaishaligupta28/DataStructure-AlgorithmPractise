@@ -1,0 +1,217 @@
+Problem Statement 2: Egg drop
+
+
+Your goal is to devise a strategy to determine the value of T given the following limitations
+on the number of eggs and tosses:
+
+Version 0: 1 egg, ≤T tosses.
+Version 1: ∼1logN eggs and ∼1logN tosses.
+Version 2: ∼logT eggs and ∼2logT tosses.
+Version 3: 2 eggs and ∼2√n tosses.
+Version 4: 2 eggs and ≤c√T tosses for some fixed constant c.
+
+
+Terminologies :
+Tosses : How many times an egg will have to be dropped.
+Eggs: Max number of eggs that can be dropped.
+
+Critical Floor : Floor where the egg will break.
+
+
+
+Solution 1:
+---------------
+Version 0: 1 egg, ≤T tosses.
+
+Steps :
+    - Since we have only 1 egg, so we can only perform a sequential search from bottom to top till we find a floor
+     where the egg will break. Since we are not skipping any floors here, so we can confidently say
+     this floor is our critical floor i.e. our T.
+    - So it will take at-least T chances and only 1 egg will be broken at the Tth floor.
+
+Tosses: T
+Eggs: 1
+
+
+
+Solution 2:
+---------------
+Version 1: ∼1logN eggs and ∼1logN tosses.
+
+- This solution since we have logN eggs, we can break logN -1 eggs to reach our critical floor.
+    So we can do a binary search instead of a linear search.
+Steps :
+    - First go the mid-floor and check if the egg breaks here.
+    - If egg breaks and since we have skipped all floors bottom of the mid, there is a chance the
+    egg could have broken somewhere in the middle. And we no longer have to go to all floor above this mid.
+    Now floors to be checked for criticality is (1-mid) only.
+
+    - If egg does not break on mid then we have still not reached a floor where egg breaks which means
+    the critical floor lies in thr top floors from mid. And we no longer have to go to all floors below this mid.
+    Now floors to be checked for criticality is (mid+1-N) only.
+
+    - Now we keep repeating the same process by finding the mid till we find our critical floor.
+
+Tosses : logN
+Eggs : logN
+
+
+Solution 3:
+---------------
+Version 2: ∼logT eggs and ∼2logT tosses.
+
+- This solution involves two steps,
+    - First finding a floor where the egg breaks.
+        Now this does not mean this floor is our critical floor.
+    - After finding the floor where the egg breaks we just have to check for our critical floor too.
+
+Steps :
+    - If we moved sequentially like 1,2,3,4,5,..... N we will need N tosses, but we only have max 2logT tosses.
+    So we somehow need to get this in logT tosses only.
+
+    - So instead of going sequentially, we go exponentially like
+        1, 2, 2*2, 2*2*2, 2*2*2*2 ........... N
+    i.e 1, 2, 4, 8, 16, 32 ...................N
+
+    Step 1:
+    -------
+    If we assume number of steps taken is x,
+    and the floor at which the egg breaks first time is 2^x,
+    Means the immediate previous step is 2^(x-1) where egg did not break.
+
+    Since our critical floor (T) lies b/w 2^(x-1) and 2^(x)
+    i.e. 2^x > T
+        x > logT
+
+    - Since first step as we said takes `x` steps and x > logT so first step takes somewhere > logT steps.
+    Till this point, we have only broken 1 egg and utilised logT steps.
+
+    Step 2:
+    -------
+    - Now moving to second step, finding exact critical floor----->>>
+    Since we now have to search from 2^(x-1) to 2^(x)
+    So number of floors = 2^(x) - 2^(x-1) = 2^(x-1)
+
+    Since x > logT then 2^x-1 steps ~ T/2 floors
+
+    - Now we can do binary search over these ~T/2 floors which will take log(T) steps and also log(T) eggs as we saw earlier.
+
+    - In total tosses taken is >(logT) steps for step1 and ~logT for step2 = ~2logT tosses and logT + 1 eggs ~ logT eggs.
+
+Tosses : ~2logT
+Eggs : ~logT
+
+
+Solution 4:
+---------------
+Version 3: 2 eggs and ∼2√N tosses.
+
+- This solution also involves same two steps,
+    - First finding a floor where the egg breaks.
+        Now this does not mean this floor is our critical floor.
+    - After finding the floor where the egg breaks we just have to check for our critical floor too.
+
+Steps :
+    - If we moved sequentially like 1,2,3,4,5,..... N, we will need N tosses, but we only have max ∼2√N tosses.
+          So we somehow need to get this in √N tosses only.
+    - So instead of going sequentially, we go square root times for e.g. N = 100
+        1, 10, 2*10, 3*10, 4*10 ........... 100
+    i.e 1, 10, 20, 30, 40 ..................100
+
+    Step 1:
+    -------
+    When we start from √n floor, then number of steps it will take to reach N will be N / √N = √N steps.
+    So, it might take √N steps in worst case to finding a floor where an egg breaks. And it takes only 1 egg.
+
+    If we assume number of steps taken is x,
+    and the floor at which the egg breaks first time is x*√N,
+    Means the immediate previous step is (x-1)*√N where egg did not break.
+    So our critical floor T lies b/w these two floors.
+
+    Step 2:
+    -------
+    - Now moving to second step, finding exact critical floor----->>>
+    Since we now have to search from (x-1)*√N to x*√N
+    So max number of floors to reach T = [ x*√N - (x-1)*√N ] = √N
+
+    - Since we just have 1 egg remaining, so we can only do sequential search over these √N floors
+    which will take √N tosses.
+
+
+Tosses: 2√N
+Eggs: 2
+
+
+Solution 5:
+---------------
+Version 4: 2 eggs and ≤c√T tosses for some fixed constant c.
+
+- This solution also involves same two steps,
+    - First finding a floor where the egg breaks.
+        Now this does not mean this floor is our critical floor.
+    - After finding the floor where the egg breaks we just have to check for our critical floor too.
+
+Steps :
+    - If we moved sequentially like 1,2,3,4,5,..... N, we will need N tosses, but we only have max (c√T) tosses.
+          So we somehow need to get this in some (c*√T) tosses only.
+    - So instead of going sequentially, we take quadratic steps.
+        1, 2*2, 3*3, 4*4, 5*5 ........... N
+    i.e 1, 4, 9, 16, 25 ..................N
+
+
+    Step 1:
+    -------
+    If we assume number of steps taken is x,
+    and the floor at which the egg breaks first time is x^2,
+    Means the immediate previous step is (x-1)^2 where egg did not break.
+
+    Since our critical floor (T) lies b/w (x-1)^2 and x^2
+    i.e. x^2 >= T
+        x >= √T
+
+    - Since first step as we said takes `x` steps and x >= √T so first step takes somewhere >= √T steps.
+    Till this point, we have only broken 1 egg and utilised ~√T steps.
+
+
+    Step 2:
+    -------
+    - Now moving to second step, finding exact critical floor----->>>
+    Since we now have to search from (x-1)^2 to x^2
+    So number of floors = x^2 - (x-1)^2 = x^2 - [x^2 - 2*x + 1] = (2*x - 1) floors
+
+    Since x >= √T, then (2*x - 1) steps >= 2√T -1 floors
+
+    - Since we just have 1 egg remaining, so we can only do sequential search over these (2*x - 1) floors
+        which will take 2√T -1 tosses.
+
+    - In total tosses taken is (>=√T) for step1 + (>=2√T - 1) for step2.
+    Total tosses (>= 3√T - 1) i.e. we can also say (<= 4√T) with 2 eggs.
+
+
+Tosses : <=4√T
+Eggs: 2
+
+
+
+
+Solution Summary
+-------------------
+Version 0: With 1 egg and ≤ T tosses, a sequential search is used from the bottom to the top of the building.
+            The critical floor T is found directly where the egg breaks.
+
+Version 1: Using ∼1logN eggs and ∼1logN tosses, a binary search approach is employed.
+            This optimizes by halving the search space with each toss, efficiently finding T.
+
+Version 2: ∼logT eggs and ∼2logT tosses involve an exponential search to determine a range where the egg breaks,
+            followed by a binary search within that range to pinpoint T.
+
+Version 3: With 2 eggs and ∼2√N tosses, the strategy starts with large steps (√N) to locate the approximate region of T,
+            then narrows down with sequential testing in that range.
+
+Version 4: Using 2 eggs and ≤ c√T tosses (for a fixed constant c), the approach uses quadratic steps
+            to quickly identify a broad area where T might lie,
+            followed by a sequential search in a narrower range around that area.
+
+
+
+
