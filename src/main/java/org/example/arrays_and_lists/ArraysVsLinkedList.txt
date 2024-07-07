@@ -1,35 +1,15 @@
-Data Structure:  Arrays
+Tradeoffs between Linked List and Arrays
 
-Operations:
-- Insert
-- Remove
-- Update
-- Read
-- Insert at a specific location
-- Remove at a specific location
-- Update at a specific location
-- Read at a specific location
-- Count total elements
+- Linked List
+1. Each operation in worst case always takes a constant time for insertion and deletion.
+2. Takes additional memory space for storing references links etc..
 
+- Resizing Array or ArrayList
+1. Averaged over multiple operations i.e amortised time for insertion and deletion is constant.
+But there will be certain operations when array is being resized that the time could take proportional to N.
 
-Implementations:
-ArrayList in Java
+2. Takes less memory space than linked list.
 
 
-Challenges:
-1. Resizing of arrays.
-
-
-                Time Cost Summary
-              ---------------------
-               Best     Worst   Amortized
-initialize     1         1         1
-insert         1         N         1
-remove         1         N         1
-read           1         1         1
-
-Worst case occurs when we are doubling or halving i.e. resizing happens.
-
-
-
-
+So use cases where we must always have constant time
+then we can go for linked list otherwise we can go for arraylist.
