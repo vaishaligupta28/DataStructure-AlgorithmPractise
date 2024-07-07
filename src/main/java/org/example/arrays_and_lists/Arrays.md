@@ -19,10 +19,10 @@ ArrayList in Java
 Challenges:
 1. Resizing of arrays.
 
-
+````
                 Time Cost Summary
               ---------------------
-               Best     Worst   Amortized
+               Best     Worst   Amortized[Averaged over all operations]
 initialize     1         1         1
 insert         1         N         1
 remove         1         N         1
@@ -30,6 +30,6 @@ read           1         1         1
 
 Worst case is when doubling or halving operation i.e. resizing happens.
 
-
+````
 
 

@@ -2,10 +2,10 @@ Tradeoffs between Linked List and Arrays
 
 - Linked List
 1. Each operation in worst case always takes a constant time for insertion and deletion.
-2. Takes additional memory space for storing references links etc..
+2. Takes additional memory space for storing references and links etc...
 
 - Resizing Array or ArrayList
-1. Averaged over multiple operations i.e amortised time for insertion and deletion is constant.
+1. Averaged over multiple operations i.e. amortised time for insertion and deletion is constant.
 But there will be certain operations when array is being resized that the time could take proportional to N.
 
 2. Takes less memory space than linked list.
