@@ -1,8 +1,8 @@
-Amortized Analysis for resizing array approaches:
+### Amortized Analysis for resizing array approaches
 
-### Insertions:
+### Insertions
 ####
-* #### Approach1
+* #### Approach 1
 Creating a new array everytime and copying all elements from prev array
 to new array each time we add new elements.
 
@@ -30,7 +30,7 @@ Time Complexity Analysis
 ##### Result:  Very expensive operation especially copying and creating new arrays.
 
 ####
-* #### Approach2: Repeated Doubling
+* #### Approach 2: Repeated Doubling
 Creating a new array with twice the size of the prev array
 and copying elements from prev array only when the ((array is full)).
 
@@ -76,9 +76,9 @@ Time Complexity Analysis
 ````
 ##### Result:  Best approach of resizing during insertion.
 
-### Deletions:
+### Deletions
 ####
-* #### Approach1
+* #### Approach 1
 Halving the array whenever it is only 1/2 full.
 
 In this approach, there is an issue that occurs for a specific case
@@ -97,10 +97,16 @@ O (N^2). So this is not the best approach.
 ##### Result:  Not the most efficient approach of resizing during deletion.
 
 ####
-* #### Approach2
+* #### Approach 2
 Halving the array whenever it is only 1/4th full.
 
 In this approach we never encounter any issues of thrashing.
 Hence, this approach is the best way to resizing the array during delete operations.
 
 ##### Result:  Most efficient approach of resizing during deletion.
+
+## Code 
+[ResizingArray.class](ResizableArray.java)
+
+### Wiki References
+https://www.coursera.org/learn/algorithms-part1/supplement/UAJbP/lecture-slides - Stacks and Queues by Princeton Pdf
