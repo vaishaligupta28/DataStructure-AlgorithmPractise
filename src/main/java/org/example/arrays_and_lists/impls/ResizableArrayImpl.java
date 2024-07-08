@@ -1,4 +1,4 @@
-package org.example.arrays_and_lists;
+package org.example.arrays_and_lists.impls;
 import java.util.Arrays;
 
 /**
@@ -43,7 +43,7 @@ import java.util.Arrays;
  * @param <T>
  */
 // ResizableArray Class
-public final class ResizableArray<T> {
+public final class ResizableArrayImpl<T> {
     // Default capacity for the array
     private static final int DEFAULT_CAPACITY = 1;
     // Array to store elements
@@ -53,7 +53,7 @@ public final class ResizableArray<T> {
 
     // Constructor to initialize the array
     // with default capacity and size
-    public ResizableArray() {
+    public ResizableArrayImpl() {
         this.array = new Object[DEFAULT_CAPACITY];
         this.size = 0;
     }
@@ -137,7 +137,7 @@ public final class ResizableArray<T> {
     }
 
     public static void main(String[] args) {
-        ResizableArray<Integer> dynamicArray = new ResizableArray<>();
+        ResizableArrayImpl<Integer> dynamicArray = new ResizableArrayImpl<>();
         dynamicArray.add(100);
         dynamicArray.add(150);
         dynamicArray.add(200);

@@ -106,7 +106,7 @@ Hence, this approach is the best way to resizing the array during delete operati
 ##### Result:  Most efficient approach of resizing during deletion.
 
 ## Code 
-[ResizingArray.class](ResizableArray.java)
+[ResizingArray.class](impls/ResizableArrayImpl.java)
 
 ### Wiki References
 https://www.coursera.org/learn/algorithms-part1/supplement/UAJbP/lecture-slides - Stacks and Queues by Princeton Pdf
