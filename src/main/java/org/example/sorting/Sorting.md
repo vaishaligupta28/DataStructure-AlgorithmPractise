@@ -1,6 +1,6 @@
 ## Selection Sort
 Selecting the minimum of the set in each iteration
-and then swapping that minimum position with the current's index position.
+and then swapping that minimum position with the current index position.
 
 Approach:
 - Gets minimum of the set
@@ -17,13 +17,13 @@ Sorted Set = {2   3    4   5   6   7   8    9}
 
 Starting from the unsorted set={9 7 8 6 4 5 2 3}
 
-After the 1st iteration, swapped 9 with 2, Sorted Set = {2 7 8 6 4 5 9 3}          
-After the 2nd iteration, swapped 7 with 3, Sorted Set = {2 3 8 6 4 5 9 7}
-After the 3rd iteration, swapped 8 with 4, Sorted Set = {2 3 4 6 8 5 9 7}
-After the 4th iteration, swapped 6 with 5, Sorted Set = {2 3 4 5 8 6 9 7}
-After the 5th iteration, swapped 6 with 5, Sorted Set = {2 3 4 5 6 8 9 7}
-After the 6th iteration, swapped 6 with 5, Sorted Set = {2 3 4 5 6 7 9 8}
-After the 7th iteration, swapped 6 with 5, Sorted Set = {2 3 4 5 6 7 8 9}
+After the 1st iteration, min:2 swapped 9 with 2, Sorted Set = {2 7 8 6 4 5 9 3}          
+After the 2nd iteration, min:3 swapped 7 with 3, Sorted Set = {2 3 8 6 4 5 9 7}
+After the 3rd iteration, min:4 swapped 8 with 4, Sorted Set = {2 3 4 6 8 5 9 7}
+After the 4th iteration, min:5 swapped 6 with 5, Sorted Set = {2 3 4 5 8 6 9 7}
+After the 5th iteration, min:6 swapped 8 with 6, Sorted Set = {2 3 4 5 6 8 9 7}
+After the 6th iteration, min:7 swapped 8 with 7, Sorted Set = {2 3 4 5 6 7 9 8}
+After the 7th iteration, min:8 swapped 9 with 8, Sorted Set = {2 3 4 5 6 7 8 9} // sorted
 
 After all 7 iterations have finished, Sorted Set = {2 3 4 5 6 7 8 9}
 
